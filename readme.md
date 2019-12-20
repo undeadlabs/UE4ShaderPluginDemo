@@ -1,3 +1,13 @@
+**Undead Labs note**
+
+This plugin is (c) the orignal author, Frederick Lindh.  This repo is a for used for internal development *ONLY*.  
+
+**Do not use or copy this code directly into any Undead Labs game code!**
+
+Author's notes below:
+
+----
+
 **Notice**
 
 I have removed the master branch and updated default to be the latest major version instead to make it more clear what major version head belongs to. I'm currently working on an update for 4.24 since there has been some major changes in how you best work with global shaders in the engine.
