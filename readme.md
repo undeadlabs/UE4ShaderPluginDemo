@@ -1,6 +1,6 @@
 **Undead Labs note**
 
-This plugin is (c) the orignal author, Frederick Lindh.  This repo is a for used for internal development *ONLY*. Please copyright any individual files added for development to Undead Labs so it's clear which code is original and which is not
+This plugin is (c) the orignal author, Frederick Lindh, with additions by various contributors.  This repo is a for used for internal development *ONLY*. Please copyright any individual files added for development to Undead Labs so it's clear which code is original and which is not
 
 **Do not use or copy this code directly into any Undead Labs game code!**
 
