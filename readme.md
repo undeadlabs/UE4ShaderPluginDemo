@@ -1,3 +1,12 @@
+# Note
+
+This is a fork of a repo by Frederick Lindh and others -- it's intended for test purposes only and should not ship!
+
+The original repo had no license info, but the author has subsequently added an MIT license.  If we end up wanting to use
+this code on a production basis we'll want to revisit licensing with MS Legal
+-Steve 1/2/2020
+
+
 # Hello!
 
 It's been a while! I've been meaning to update this to more modern standards for quite some time but have never really taken the time to do it until now.
