@@ -100,6 +100,7 @@ public:
 		SHADER_PARAMETER(FVector4, EndColor)
 		SHADER_PARAMETER(FVector2D, TextureSize) // Metal doesn't support GetDimensions(), so we send in this data via our parameters.
 		SHADER_PARAMETER(float, BlendFactor)
+
 	END_SHADER_PARAMETER_STRUCT()
 
 public:

@@ -1,4 +1,4 @@
-# Note
+# Notes
 
 This is a fork of a repo by Frederick Lindh and others -- it's intended for test purposes only and should not ship!
 
@@ -6,6 +6,13 @@ The original repo had no license info, but the author has subsequently added an 
 this code on a production basis we'll want to revisit licensing with MS Legal
 -Steve 1/2/2020
 
+
+Notes:
+
+
+
+> original readme below here..........
+------
 
 # Hello!
 

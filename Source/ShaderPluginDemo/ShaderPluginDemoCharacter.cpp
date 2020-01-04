@@ -106,12 +106,13 @@ void AShaderPluginDemoCharacter::Tick(float DeltaSeconds)
 		
 	ComputeShaderBlend = FMath::Clamp(ComputeShaderBlend + ComputeShaderBlendScalar * DeltaSeconds, 0.0f, 1.0f);
 
-	FShaderUsageExampleParameters DrawParameters(RenderTarget);
+	FShaderUsageExampleParameters DrawParameters(RenderTarget, TestTexture);
 	{
 		DrawParameters.SimulationState = ComputeShaderSimulationSpeed * TotalTimeSecs;
 		DrawParameters.ComputeShaderBlend = ComputeShaderBlend;
 		DrawParameters.StartColor = StartColor;
 		DrawParameters.EndColor = FColor(EndColorBuildup * 255, 0, 0, 255);
+		DrawParameters.SimSpeed = ComputeShaderSimSpeed;
 	}
 
 	// If doing this for realsies, you should avoid doing this every frame unless you have to of course.

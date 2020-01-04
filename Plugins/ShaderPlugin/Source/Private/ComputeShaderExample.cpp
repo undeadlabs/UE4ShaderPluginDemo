@@ -48,6 +48,8 @@ public:
 		SHADER_PARAMETER_UAV(RWTexture2D<uint>, OutputTexture)
 		SHADER_PARAMETER(FVector2D, TextureSize) // Metal doesn't support GetDimensions(), so we send in this data via our parameters.
 		SHADER_PARAMETER(float, SimulationState)
+		SHADER_PARAMETER(float, Dummy)
+		SHADER_PARAMETER_TEXTURE(Texture2D, TestTexture)
 	END_SHADER_PARAMETER_STRUCT()
 
 public:
@@ -68,7 +70,9 @@ public:
 
 // This will tell the engine to create the shader and where the shader entry point is.
 //                            ShaderType                            ShaderPath                     Shader function name    Type
-IMPLEMENT_GLOBAL_SHADER(FComputeShaderExampleCS, "/Plugin/ShaderPlugin/Private/ComputeShader.usf", "MainComputeShader", SF_Compute);
+IMPLEMENT_GLOBAL_SHADER(FComputeShaderExampleCS, "/Plugin/ShaderPlugin/Private/ComputeShader.usf", "AltComputeShader", SF_Compute);
+
+
 
 void FComputeShaderExample::RunComputeShader_RenderThread(FRHICommandListImmediate& RHICmdList, const FShaderUsageExampleParameters& DrawParameters, FUnorderedAccessViewRHIRef ComputeShaderOutputUAV)
 {
@@ -82,9 +86,17 @@ void FComputeShaderExample::RunComputeShader_RenderThread(FRHICommandListImmedia
 	PassParameters.OutputTexture = ComputeShaderOutputUAV;
 	PassParameters.TextureSize = FVector2D(DrawParameters.GetRenderTargetSize().X, DrawParameters.GetRenderTargetSize().Y);
 	PassParameters.SimulationState = DrawParameters.SimulationState;
+	PassParameters.Dummy = DrawParameters.SimSpeed;
+	// note this only works because i've commented out the parameter hash check in  
+	// \Source\Runtime\RenderCore\Public\ShaderParameterStruct.h, which always fails if a 
+	// texture is set in the parameters...
+
+	PassParameters.TestTexture = DrawParameters.TestTexture->Resource->TextureRHI;
 
 	TShaderMapRef<FComputeShaderExampleCS> ComputeShader(GetGlobalShaderMap(GMaxRHIFeatureLevel));
-	FComputeShaderUtils::Dispatch(RHICmdList, *ComputeShader, PassParameters, 
+	SetShaderParameters(RHICmdList, *ComputeShader, ComputeShader->GetComputeShader(), PassParameters);
+		
+	FComputeShaderUtils::Dispatch(RHICmdList, *ComputeShader, PassParameters,
 								FIntVector(FMath::DivideAndRoundUp(DrawParameters.GetRenderTargetSize().X, NUM_THREADS_PER_GROUP_DIMENSION),
 										   FMath::DivideAndRoundUp(DrawParameters.GetRenderTargetSize().Y, NUM_THREADS_PER_GROUP_DIMENSION), 1));
 }

@@ -40,6 +40,8 @@ struct FShaderUsageExampleParameters
 	FColor EndColor;
 	float SimulationState;
 	float ComputeShaderBlend;
+	float SimSpeed;
+	UTexture2D* TestTexture;
 	
 	FIntPoint GetRenderTargetSize() const
 	{
@@ -47,11 +49,13 @@ struct FShaderUsageExampleParameters
 	}
 
 	FShaderUsageExampleParameters()	{ }
-	FShaderUsageExampleParameters(UTextureRenderTarget2D* InRenderTarget)
+	FShaderUsageExampleParameters(UTextureRenderTarget2D* InRenderTarget, UTexture2D* InTexture)
 		: RenderTarget(InRenderTarget)
 		, StartColor(FColor::White)
 		, EndColor(FColor::White)
 		, SimulationState(1.0f)
+		, SimSpeed(2.0f)
+		, TestTexture(InTexture)
 	{
 		CachedRenderTargetSize = RenderTarget ? FIntPoint(RenderTarget->SizeX, RenderTarget->SizeY) : FIntPoint::ZeroValue;
 	}

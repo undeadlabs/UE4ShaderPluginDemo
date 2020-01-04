@@ -64,6 +64,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	FVector GunOffset;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UL)
+	UTexture2D* TestTexture;
+
 	/************************************************************************/
 	/* Plugin Shader Demo variables!                                        */
 	/************************************************************************/
@@ -79,6 +82,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShaderDemo)
 	UTextureRenderTarget2D* RenderTarget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShaderDemo)
+		float ComputeShaderSimSpeed;
 
 public:
 	AShaderPluginDemoCharacter();

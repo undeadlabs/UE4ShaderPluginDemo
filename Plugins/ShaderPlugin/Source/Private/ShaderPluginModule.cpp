@@ -119,7 +119,7 @@ void FShaderPluginModule::Draw_RenderThread(const FShaderUsageExampleParameters&
 {
 	check(IsInRenderingThread());
 
-	if (!DrawParameters.RenderTarget)
+	if (!DrawParameters.RenderTarget && !DrawParameters.TestTexture)
 	{
 		return;
 	}
@@ -139,3 +139,6 @@ void FShaderPluginModule::Draw_RenderThread(const FShaderUsageExampleParameters&
 	FComputeShaderExample::RunComputeShader_RenderThread(RHICmdList, DrawParameters, ComputeShaderOutput->GetRenderTargetItem().UAV);
 	FPixelShaderExample::DrawToRenderTarget_RenderThread(RHICmdList, DrawParameters, ComputeShaderOutput->GetRenderTargetItem().TargetableTexture);
 }
+
+
+
