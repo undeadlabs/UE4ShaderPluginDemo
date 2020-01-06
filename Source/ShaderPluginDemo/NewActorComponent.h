@@ -35,13 +35,9 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void ReadPixels();
-
 private:
 
 	int BufferSize;
 	TArray<FColor> ColorBuffer;
 
-	bool bReadPixelsStarted = false;
-	FRenderCommandFence ReadPixelFence
 };

@@ -40,18 +40,9 @@ void UNewActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 			BufferSize = RenderTarget->GetSurfaceWidth();
 		}
 
-
-		//ReadPixels();
-		//ReadPixelFence.BeginFence();
-		//bReadPixelsStarted = true;
-		//...
-		//	// To check if we are done reading: 
-		//	// I do this in my tick function
-		//	if (bReadPixelsStarted && ReadPixelFence.IsFenceComplete())
-		//	{
-		//		// do something with the pixels
-		//	}
-
+		// this is a blocking read, so it's slow.  It pushes the render thread over 30ms.
+		// I tried a more selective read but that is actually slower -- i assume the
+		// real killer is the actual thread boundary...
 
 		FTextureRenderTarget2DResource* textureResource = (FTextureRenderTarget2DResource*)RenderTarget->Resource;
 		if (textureResource->ReadPixels(ColorBuffer))
@@ -75,41 +66,4 @@ void UNewActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 			}
 		}
 	}
-}
-
-
-void UNewActorComponent::ReadPixels()
-{
-	//borrowed from RenderTarget::ReadPixels()
-	FTextureRenderTarget2DResource* RenderResource = (FTextureRenderTarget2DResource*)RenderTarget->Resource;
-
-	// Read the render target surface data back.	
-	struct FReadSurfaceContext
-	{
-		FRenderTarget* SrcRenderTarget;
-		TArray<FColor>* OutData;
-		FIntRect Rect;
-		FReadSurfaceDataFlags Flags;
-	};
-
-	ColorBuffer.Reset();
-	FReadSurfaceContext ReadSurfaceContext =
-	{
-		RenderResource,
-		&ColorBuffer,
-		FIntRect(0, 0, RenderResource->GetSizeXY().X, RenderResource->GetSizeXY().Y),
-		FReadSurfaceDataFlags(RCM_UNorm, CubeFace_MAX)
-	};
-
-	ENQUEUE_UNIQUE_RENDER_COMMAND_ONEPARAMETER(
-		ReadSurfaceCommand,
-		FReadSurfaceContext, Context, ReadSurfaceContext,
-		{
-			RHICmdList.ReadSurfaceData(
-			Context.SrcRenderTarget->GetRenderTargetTexture(),
-				Context.Rect,
-				*Context.OutData,
-				Context.Flags
-				);
-		});
 }

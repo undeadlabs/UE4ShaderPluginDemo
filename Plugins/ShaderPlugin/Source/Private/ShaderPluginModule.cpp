@@ -108,9 +108,9 @@ void FShaderPluginModule::DrawEveryFrame_RenderThread(FRHICommandListImmediate& 
 	}
 
 	// Depending on your data, you might not have to lock here, just added this code to show how you can do it if you have to.
-	RenderEveryFrameLock.Lock();
+	//RenderEveryFrameLock.Lock();
 	FShaderUsageExampleParameters Copy = CachedShaderUsageExampleParameters;
-	RenderEveryFrameLock.Unlock();
+	//RenderEveryFrameLock.Unlock();
 
 	Draw_RenderThread(Copy);
 }
